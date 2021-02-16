@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k8s-mysql
+  labels:
+    name: lbl-k8s-mysql
+spec:
+  containers:
+  - name: mysql
+    image: mysql:5.6
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "root"
+    - name: MYSQL_DATABASE
+      value: "emporium"
+    - name: MYSQL_USER
+      value: "emporium"
+    - name: MYSQL_PASSWORD
+      value: "emporium"
+    ports:
+    - name: mysql
+      containerPort: 3306
+      protocol: TCP
+    volumeMounts:
+    - name: k8s-mysql-storage
+      mountPath: /var/lib/mysql
+  volumes:
+  - name: k8s-mysql-storage
+    emptyDir: {}
